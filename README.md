@@ -36,11 +36,11 @@ Sistema mobile desenvolvido para ajudar professores na gestão de alunos, matér
 ### 🚀 Passos
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repo.git
+   git clone https://github.com/andre-0303/app-gestaoAlunos.git
    ```
 2. Acesse a pasta do projeto:
    ```bash
-   cd nome-do-projeto
+   cd app-alunos
    ```
 3. Instale as dependências:
    ```bash
@@ -50,8 +50,7 @@ Sistema mobile desenvolvido para ajudar professores na gestão de alunos, matér
    ```bash
    yarn
    ```
-4. Configure o arquivo `api.js` com a URL do backend hospedado.
-5. Execute o app:
+4. Execute o app:
    - **Android**:
      ```bash
      npx react-native run-android
