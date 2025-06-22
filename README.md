@@ -77,11 +77,8 @@ Sistema mobile desenvolvido para ajudar professores na gestão de alunos, matér
 
 ## 🧑‍💻 Desenvolvido por
 **André Bandeira**  
-💼 Desenvolvedor Front-End apaixonado por criar experiências digitais incríveis.  
-🚀 Especialista em React, Next.js, Tailwind, React Native e desenvolvimento web moderno.  
-📍 Brasil 🇧🇷
 
 ## ⭐ Contato
-- 📧 **E-mail**: bandeira.dev@exemplo.com
-- 🔗 **LinkedIn**: [LinkedIn](#)
-- 🐙 **GitHub**: [GitHub](#)
+- 📧 **E-mail**: bandeiradev.ti@gmail.com 
+- 🔗 **LinkedIn**: [LinkedIn](https://www.linkedin.com/in/andr%C3%A9-bandeira?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+- 🐙 **GitHub**: [GitHub](https://github.com/andre-0303)
