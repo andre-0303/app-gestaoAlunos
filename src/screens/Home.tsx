@@ -1,6 +1,16 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from "react-native";
 
 export default function Home({ navigation }: any) {
+  const handleLogout = () => {
+    Alert.alert("Sair", "Deseja realmente sair?", [
+      { text: "Cancelar" },
+      {
+        text: "Sair",
+        onPress: () => navigation.replace("Login"),
+      },
+    ]);
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -14,32 +24,29 @@ export default function Home({ navigation }: any) {
 
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#007aff" }]}
+          style={[styles.button, { backgroundColor: "#4DB12F" }]}
           onPress={() => navigation.navigate("ListaAlunos", { turma: "Infor_G8" })}
         >
           <Text style={styles.buttonText}>Infor G8</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#007aff" }]}
+          style={[styles.button, { backgroundColor: "#4DB12F" }]}
           onPress={() => navigation.navigate("ListaAlunos", { turma: "Infor_G9" })}
         >
           <Text style={styles.buttonText}>Infor G9</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#007aff" }]}
+          style={[styles.button, { backgroundColor: "#4DB12F" }]}
           onPress={() => navigation.navigate("ListaAlunos", { turma: "Infor_G10" })}
         >
           <Text style={styles.buttonText}>Infor G10</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
-        style={[styles.footerButton, { backgroundColor: "#fcb900" }]}
-        onPress={() => Alert.alert("Sistema desenvolvido para EEEP Dep. José Maria Melo")}
-      >
-        <Text style={styles.footerButtonText}>Sobre o App</Text>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Sair</Text>
       </TouchableOpacity>
     </View>
   );
@@ -87,14 +94,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
-  footerButton: {
+  logoutButton: {
+    backgroundColor: "#ef4444", // Vermelho para sair
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 50,
     elevation: 3,
   },
-  footerButtonText: {
-    color: "#1e293b",
+  logoutButtonText: {
+    color: "#fff",
     fontSize: 14,
     fontWeight: "600",
   },
