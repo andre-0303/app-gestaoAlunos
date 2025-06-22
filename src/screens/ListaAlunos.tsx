@@ -61,6 +61,14 @@ export default function ListaAlunos({ route, navigation }: any) {
               >
                 <Text style={styles.actionText}>Deletar</Text>
               </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{ backgroundColor: "#4DB12F", padding: 8, borderRadius: 8 }}
+                onPress={() => navigation.navigate("NotasAluno", { aluno: item })}
+              >
+                <Text style={{ color: "#fff", fontWeight: "600" }}>Notas</Text>
+              </TouchableOpacity>
+
             </View>
           </View>
         )}

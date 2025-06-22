@@ -5,6 +5,7 @@ import Login from "../screens/Login";
 import Home from "../screens/Home";
 import ListaAlunos from "../screens/ListaAlunos";
 import FormAluno from "../screens/FormAluno";
+import NotasAluno from "../screens/NotasAluno";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ export function Routes() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="ListaAlunos" component={ListaAlunos} />
         <Stack.Screen name="FormAluno" component={FormAluno} />
+        <Stack.Screen name="NotasAluno" component={NotasAluno} />
       </Stack.Navigator>
     </NavigationContainer>
   );
