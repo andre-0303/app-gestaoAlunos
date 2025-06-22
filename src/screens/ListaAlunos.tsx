@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet } from "react-native";
 import { api } from "../services/api";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function ListaAlunos({ route, navigation }: any) {
+
+export default function ListaAlunos({ route, navigation }) {
   const { turma } = route.params;
   const [alunos, setAlunos] = useState([]);
 
@@ -11,7 +13,7 @@ export default function ListaAlunos({ route, navigation }: any) {
     setAlunos(res.data);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id) => {
     Alert.alert("Confirmar", "Deseja remover o aluno?", [
       { text: "Cancelar" },
       {
@@ -31,23 +33,34 @@ export default function ListaAlunos({ route, navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate("FormAluno", { turma })}
-      >
-        <Text style={styles.addButtonText}>Cadastrar Novo Aluno</Text>
-      </TouchableOpacity>
-
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={26} color="#1e293b" style={{marginBottom: '24px'}} />
+        </TouchableOpacity>
       <FlatList
         data={alunos}
-        keyExtractor={(item: any) => item.id.toString()}
-        renderItem={({ item }: any) => (
+        keyExtractor={(item) => item.id.toString()}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <Text style={styles.emptyText}>Nenhum aluno cadastrado na turma.</Text>
+        )}
+        renderItem={({ item }) => (
           <View style={styles.card}>
-            <Text style={styles.nome}>{item.nome}</Text>
-            <Text style={styles.info}>Idade: {item.idade}</Text>
-            <Text style={styles.info}>Email: {item.email}</Text>
+            <View style={styles.cardHeader}>
+              <Text style={styles.nome}>{item.nome}</Text>
+              <Text style={styles.turma}>{turma.replace("_", " ")}</Text>
+            </View>
+
+            <Text style={styles.info}>🎂 Idade: {item.idade}</Text>
+            <Text style={styles.info}>📧 Email: {item.email}</Text>
 
             <View style={styles.actions}>
+              <TouchableOpacity
+                style={styles.notasButton}
+                onPress={() => navigation.navigate("NotasAluno", { aluno: item })}
+              >
+                <Text style={styles.actionText}>Notas</Text>
+              </TouchableOpacity>
+
               <TouchableOpacity
                 style={styles.editButton}
                 onPress={() => navigation.navigate("FormAluno", { aluno: item })}
@@ -61,18 +74,17 @@ export default function ListaAlunos({ route, navigation }: any) {
               >
                 <Text style={styles.actionText}>Deletar</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={{ backgroundColor: "#4DB12F", padding: 8, borderRadius: 8 }}
-                onPress={() => navigation.navigate("NotasAluno", { aluno: item })}
-              >
-                <Text style={{ color: "#fff", fontWeight: "600" }}>Notas</Text>
-              </TouchableOpacity>
-
             </View>
           </View>
         )}
       />
+
+      <TouchableOpacity
+        style={styles.floatingButton}
+        onPress={() => navigation.navigate("FormAluno", { turma })}
+      >
+        <Text style={styles.floatingButtonText}>+ Novo Aluno</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -81,35 +93,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f9f9f9",
-    padding: 20,
+    padding: 16,
   },
-  addButton: {
-    backgroundColor: "#4DB12F",
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 20,
-    elevation: 4,
-  },
-  addButtonText: {
-    color: "#fff",
+  emptyText: {
+    textAlign: "center",
+    marginTop: 40,
+    color: "#64748b",
     fontSize: 16,
-    fontWeight: "bold",
   },
   card: {
     backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
     elevation: 3,
-    borderLeftWidth: 6,
+    borderLeftWidth: 5,
     borderLeftColor: "#4DB12F",
+  },
+  cardHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
   },
   nome: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#1e293b",
-    marginBottom: 6,
+  },
+  turma: {
+    backgroundColor: "#4DB12F",
+    color: "#fff",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+    fontSize: 12,
+    fontWeight: "600",
   },
   info: {
     fontSize: 14,
@@ -119,24 +138,49 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginTop: 10,
     gap: 10,
+    marginTop: 10,
+  },
+  notasButton: {
+    backgroundColor: "#4DB12F",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
   },
   editButton: {
     backgroundColor: "#fcb900",
     paddingVertical: 8,
-    paddingHorizontal: 15,
+    paddingHorizontal: 12,
     borderRadius: 8,
   },
   deleteButton: {
-    backgroundColor: "#ef4444", // Vermelho para deletar
+    backgroundColor: "#ef4444",
     paddingVertical: 8,
-    paddingHorizontal: 15,
+    paddingHorizontal: 12,
     borderRadius: 8,
   },
   actionText: {
     color: "#fff",
     fontWeight: "600",
     fontSize: 14,
+  },
+  floatingButton: {
+    backgroundColor: "#4DB12F",
+    position: "absolute",
+    bottom: 25,
+    right: 25,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 50,
+    elevation: 6,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },
+  floatingButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

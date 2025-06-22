@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { api } from "../services/api";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function NotasAluno({ route, navigation }: any) {
   const { aluno } = route.params;
@@ -74,9 +76,27 @@ export default function NotasAluno({ route, navigation }: any) {
     }
   };
 
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#4DB12F" />
+        <Text style={{ marginTop: 10, color: "#475569" }}>
+          Carregando dados...
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Notas de {aluno.nome}</Text>
+      {/* Header com seta de voltar */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={26} color="#1e293b" />
+        </TouchableOpacity>
+        <Text style={styles.title}>Notas de {aluno.nome}</Text>
+        <View style={{ width: 26 }} />
+      </View>
 
       <FlatList
         data={materias}
@@ -87,7 +107,7 @@ export default function NotasAluno({ route, navigation }: any) {
 
             <TextInput
               style={styles.input}
-              placeholder="0 - 10"
+              placeholder="0-10"
               keyboardType="numeric"
               value={notas[item.id]?.valor || ""}
               onChangeText={(text) =>
@@ -102,7 +122,7 @@ export default function NotasAluno({ route, navigation }: any) {
               style={styles.saveButton}
               onPress={() => handleSave(item.id)}
             >
-              <Text style={styles.saveButtonText}>Salvar</Text>
+              <Ionicons name="save" size={18} color="#fff" />
             </TouchableOpacity>
           </View>
         )}
@@ -112,16 +132,28 @@ export default function NotasAluno({ route, navigation }: any) {
 }
 
 const styles = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f9f9f9",
+  },
   container: {
     flex: 1,
     backgroundColor: "#f9f9f9",
     padding: 20,
+    paddingTop: 50,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     color: "#1e293b",
-    marginBottom: 20,
     textAlign: "center",
   },
   card: {
@@ -129,8 +161,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
-    elevation: 3,
-    borderLeftWidth: 6,
+    elevation: 2,
+    borderLeftWidth: 5,
     borderLeftColor: "#4DB12F",
     flexDirection: "row",
     alignItems: "center",
@@ -145,22 +177,21 @@ const styles = StyleSheet.create({
   input: {
     width: 60,
     height: 40,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: "#4DB12F",
     borderRadius: 8,
     paddingHorizontal: 10,
     textAlign: "center",
     backgroundColor: "#fff",
+    fontSize: 15,
   },
   saveButton: {
-    backgroundColor: "#fcb900",
+    backgroundColor: "#4DB12F",
     paddingVertical: 8,
-    paddingHorizontal: 15,
+    paddingHorizontal: 12,
     borderRadius: 8,
     elevation: 2,
-  },
-  saveButtonText: {
-    color: "#fff",
-    fontWeight: "600",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
