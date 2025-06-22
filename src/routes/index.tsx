@@ -1,19 +1,21 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import  Home  from "../screens/Home";
-import  ListaAlunos  from "../screens/ListaAlunos";
-import  FormAluno  from "../screens/FormAluno";
+import Login from "../screens/Login";
+import Home from "../screens/Home";
+import ListaAlunos from "../screens/ListaAlunos";
+import FormAluno from "../screens/FormAluno";
 
 const Stack = createNativeStackNavigator();
 
 export function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} options={{ title: 'Turmas' }} />
-        <Stack.Screen name="ListaAlunos" component={ListaAlunos} options={{ title: 'Alunos' }} />
-        <Stack.Screen name="FormAluno" component={FormAluno} options={{ title: 'Cadastro / Edição' }} />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="ListaAlunos" component={ListaAlunos} />
+        <Stack.Screen name="FormAluno" component={FormAluno} />
       </Stack.Navigator>
     </NavigationContainer>
   );
